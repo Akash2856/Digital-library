@@ -39,9 +39,11 @@ public class Book {
 
     @ManyToOne
     @JoinColumn
+    @JsonIgnore
     User user;
 
     @OneToMany(mappedBy = "book")
+    @JsonIgnore
     List<Transaction>transactions;
 
     @CreationTimestamp

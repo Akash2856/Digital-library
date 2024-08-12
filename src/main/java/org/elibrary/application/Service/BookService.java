@@ -39,5 +39,7 @@ public class BookService {
     public void updateBookMetaData(Book book){
         bookRepository.save(book);
     }
-    
+public  List<Book> getBooks(String bookTitle, BookType bookType){
+        return bookRepository.findBookByFilters(bookTitle,bookType);
+}
 }

@@ -27,7 +27,7 @@ public class  bookController {
     }
     @GetMapping("/all")
     public ResponseEntity<List<Book>> getBook(@RequestParam(value="title",required = false) String booktitle,
-                                              @RequestParam(value="title",required = false) BookType bookType){
+                                              @RequestParam(value="type",required = false) BookType bookType){
         List<Book> books=bookService.getBooks(booktitle,bookType);
         return new ResponseEntity<>(books,HttpStatus.CREATED);
     }
