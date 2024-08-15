@@ -20,9 +20,9 @@ public class userController {
     UserService userService;
 
     @PostMapping("/student")
-    public ResponseEntity<User> addStudent(@RequestBody @Valid AddUserRequest addUserRequest){
+    public ResponseEntity<?> addStudent(@RequestBody @Valid AddUserRequest addUserRequest){
     User addUser= userService.addStudent(addUserRequest);
-    return new ResponseEntity<>(addUser, HttpStatus.CREATED);
+    return new ResponseEntity<>(addUser, HttpStatus.OK);
     }
 
     @PostMapping("/admin")

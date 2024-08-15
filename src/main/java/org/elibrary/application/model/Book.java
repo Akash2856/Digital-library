@@ -18,6 +18,7 @@ import java.util.List;
 @Getter
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@ToString(exclude = {"author","transaction","user"})
 public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

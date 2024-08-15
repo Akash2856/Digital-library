@@ -3,6 +3,7 @@ package org.elibrary.application.Service;
 import jakarta.validation.constraints.Null;
 import org.elibrary.application.dto.AddBookRequest;
 import org.elibrary.application.enums.BookType;
+import org.elibrary.application.exceptions.BookException;
 import org.elibrary.application.mapper.AuthorMapper;
 import org.elibrary.application.mapper.BookMApper;
 import org.elibrary.application.model.Author;
@@ -27,6 +28,8 @@ public class BookService {
         authorFromDb = AuthorMapper.mapToAuthor(BookRequest);
         authorFromDb = authorService.addAuthor(authorFromDb);
     }
+
+
         Book book= BookMApper.maptoBook(BookRequest);
         book.setAuthor(authorFromDb);
         return bookRepository.save(book);

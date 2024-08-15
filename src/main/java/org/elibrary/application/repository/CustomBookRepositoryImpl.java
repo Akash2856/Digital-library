@@ -38,6 +38,7 @@ public class CustomBookRepositoryImpl implements CustomBookRepository{
             Predicate typePredicate=criteriaBuilder.equal(bookRoot.get("bookType"),bookType);
             predicates.add(typePredicate);
         }
+
         Predicate finalPredicate= criteriaBuilder.or(predicates.toArray(new Predicate[0]));//this is the operator between 1st or 2nd
         criteriaQuery.select(bookRoot).where(finalPredicate);
         return entityManager.createQuery(criteriaQuery).getResultList();

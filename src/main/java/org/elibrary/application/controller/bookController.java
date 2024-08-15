@@ -1,9 +1,11 @@
 package org.elibrary.application.controller;
 
 import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
 import org.elibrary.application.Service.BookService;
 import org.elibrary.application.dto.AddBookRequest;
 import org.elibrary.application.enums.BookType;
+import org.elibrary.application.exceptions.BookException;
 import org.elibrary.application.model.Book;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@Slf4j
 @RequestMapping("/book")
 public class  bookController {
 
@@ -21,7 +24,7 @@ public class  bookController {
     BookService bookService;
 
     @PostMapping("/add")
-    public ResponseEntity<Book> addBook(@Valid @RequestBody  AddBookRequest addBookRequest){
+    public ResponseEntity<?> addBook(@Valid @RequestBody  AddBookRequest addBookRequest){
         Book saveBook=bookService.addbook(addBookRequest);
         return new ResponseEntity<>(saveBook, HttpStatus.CREATED);
     }

@@ -68,7 +68,7 @@ public class TransactionService {
         User user=userService.fetchUserByEmail(transactionRequest.getUserEmail());
 
         if(user==null){
-            throw new TransactionException("User does not exist in the liberary");
+            throw new TransactionException("User not exist in the liberary");
         }
         if(user.getUserType()!= UserType.STUDENT){
             throw new TransactionException("User is not of type student");
@@ -97,6 +97,13 @@ public class TransactionService {
 
     @Transactional
     private Integer returnBook(Transaction transaction,Book book){
+        int amount=calculateFine(transaction);
+        transactionRepository.save(transaction);
+        book.setUser(null);
+        bookService.updateBookMetaData(book);
+        return amount;
+    }
+    public  int calculateFine(Transaction transaction){
         long issueDateInTime= transaction.getCreatedOn().getTime();
         long currentTime= System.currentTimeMillis();
 
@@ -123,9 +130,6 @@ public class TransactionService {
             amount=transaction.getSettlementAmount();
             transaction.setSettlementAmount(0);
         }
-        transactionRepository.save(transaction);
-        book.setUser(null);
-        bookService.updateBookMetaData(book);
         return amount;
     }
 }
