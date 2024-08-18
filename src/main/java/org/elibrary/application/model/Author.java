@@ -7,6 +7,7 @@ import lombok.experimental.FieldDefaults;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -17,7 +18,7 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class Author {
+public class Author implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
@@ -27,8 +28,8 @@ public class Author {
     @Column(unique = true,nullable = false,length = 50)
     String email;
 
-    @OneToMany(mappedBy = "author")//this name should be same as Model Book's Author author
-            @JsonIgnoreProperties(value="author")
+    @OneToMany(mappedBy = "author",fetch = FetchType.EAGER)//this name should be same as Model Book's Author author
+    @JsonIgnoreProperties(value="author")
     List<Book> books;
 
     @CreationTimestamp

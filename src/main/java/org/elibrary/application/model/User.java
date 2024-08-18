@@ -8,6 +8,7 @@ import org.elibrary.application.enums.UserType;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -18,7 +19,7 @@ import java.util.List;
 @Getter
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class User {
+public class User implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;

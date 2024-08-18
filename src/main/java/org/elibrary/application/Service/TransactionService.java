@@ -64,7 +64,7 @@ public class TransactionService {
         bookService.updateBookMetaData(book);
         return transaction;
     }
-    private User fetchUser(TransactionRequest transactionRequest){
+    public User fetchUser(TransactionRequest transactionRequest){
         User user=userService.fetchUserByEmail(transactionRequest.getUserEmail());
 
         if(user==null){
