@@ -7,10 +7,16 @@ import org.elibrary.application.enums.UserStatus;
 import org.elibrary.application.enums.UserType;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.io.Serializable;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @AllArgsConstructor
@@ -19,7 +25,7 @@ import java.util.List;
 @Getter
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class User implements Serializable{
+public class User implements Serializable,UserDetails{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
@@ -48,4 +54,16 @@ public class User implements Serializable{
     @UpdateTimestamp
     Date updtaedOn;
 
+    String password;
+    String authorities;
+
+    @Override
+    public String getUsername() {
+        return email;
+    }
+    public Collection<? extends GrantedAuthority> getAuthorities(){
+        return Arrays.stream(authorities.split(","))
+                .map(authority -> new SimpleGrantedAuthority(authority))
+                .collect(Collectors.toList());
+    }
 }

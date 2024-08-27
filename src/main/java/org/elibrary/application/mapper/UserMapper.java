@@ -14,6 +14,7 @@ public User mapToUser(AddUserRequest userRequest){
             .name(userRequest.getUserName())
             .email(userRequest.getEmail())
             .address(userRequest.getAddress())
+            .password(userRequest.getPassword())
             .userStatus(UserStatus.ACTIVE).build();
 }
 }

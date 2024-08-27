@@ -16,4 +16,6 @@ public class AddUserRequest {
     String email;
     String  phoneNo;
     String address;
+    @NotBlank(message = "Please provide the password")
+    String password;
 }

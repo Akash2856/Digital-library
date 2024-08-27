@@ -4,7 +4,6 @@ package org.elibrary.application.controller;
 import jakarta.validation.Valid;
 import org.elibrary.application.Service.TransactionService;
 import org.elibrary.application.dto.TransactionRequest;
-import org.elibrary.application.exceptions.TransactionException;
 import org.elibrary.application.model.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -33,7 +32,7 @@ public class TransactionController {
         return new ResponseEntity<>(transaction, HttpStatus.OK);
     }
     @PutMapping("/return")
-    public ResponseEntity<Integer> returnBook(@RequestBody @Valid TransactionRequest transactionRequest){
+    public ResponseEntity<?> returnBook(@RequestBody @Valid TransactionRequest transactionRequest){
         Integer settlementAmount= transactionService.returnBook(transactionRequest);
         return new ResponseEntity<>(settlementAmount, HttpStatus.OK);
     }

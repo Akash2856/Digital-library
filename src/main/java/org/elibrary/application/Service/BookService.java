@@ -1,6 +1,5 @@
 package org.elibrary.application.Service;
 
-import jakarta.validation.constraints.Null;
 import org.elibrary.application.dto.AddBookRequest;
 import org.elibrary.application.enums.BookType;
 import org.elibrary.application.exceptions.BookException;
@@ -12,9 +11,7 @@ import org.elibrary.application.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class BookService {
@@ -28,7 +25,12 @@ public class BookService {
     public Book addbook(AddBookRequest BookRequest){
     Author authorFromDb= authorService.getAuthorByEmail(BookRequest.getAuthorEmail());
     if(authorFromDb== null) {
-        authorFromDb = AuthorMapper.mapToAuthor(BookRequest);
+        try {
+            authorFromDb = AuthorMapper.mapToAuthor(BookRequest);
+        }
+        catch (BookException bookException){
+            throw  new BookException("Author name or author Email not present");
+        }
         authorFromDb = authorService.addAuthor(authorFromDb);
     }
 
